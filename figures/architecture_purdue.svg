@@ -125,9 +125,9 @@
 
   <!-- Infrastructure du laboratoire -->
   <rect x="580" y="632" width="300" height="120" rx="6" fill="#fafafa" stroke="#888" stroke-dasharray="6 4"/>
-  <text x="594" y="652" class="groupe">Infrastructure du laboratoire</text>
+  <text x="594" y="652" class="groupe">Hôte du laboratoire (VM)</text>
 
-  <text x="600" y="672" class="roleg">Passerelle / VM</text>
+  <text x="600" y="672" class="roleg">Pont virtuel Docker (passerelle)</text>
   <rect x="600" y="680" width="200" height="50" rx="6" fill="#ffffff" stroke="#666" class="boite"/>
   <text x="700" y="701" text-anchor="middle" class="hote">inf6103-tp2</text>
   <text x="700" y="719" text-anchor="middle" class="ip">192.168.95.254</text>

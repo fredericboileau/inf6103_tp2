@@ -223,7 +223,43 @@ le niveau correspondant du modèle de Purdue.
   \caption{Architecture du réseau industriel selon le modèle de Purdue}
   \label{fig:purdue}
 \end{figure}
+Le positionnment sur l'échelle de Purdue repose sur trois types d'informations
+observées:
+\begin{enumerate}
+  \item Les protocoles exposés
+  \item Les noms d'hôte (scan \texttt{nmap -Sv}) 
+  \item Les adresses MAC relevées lors du scan
+\end{enumerate}
 
-\todo{Justification du positionnement de chaque actif.}
+\textbf{Niveau 0 - Procédé physique}: simulation.scada (192.168.95.101) et 192.168.95.10-15
+Les six adresses exposent un serveur Modbus/TCP (port 502) et rien d'autre 
+d'après notre scan. Elles partagent toutes la même adresse MAC. Le nom d'hôte
+décrit explicitement le rôle de simulation de processus physique.
 
+\textbf{Niveau 1 - Contrôle de base}: plc.scada (192.168.95.2)
+L'hôte expose un serveur Modbus/TCP, un protocole par lequel un PLC
+peut être lu et commandé par un superviseur. Il expose par contre 
+aussi une application Node.js/Express au port 8080. De plus 
+il public la même bannière que le port 8080 publié par la VM décrit 
+dans l'énoncé comme une interface de contrôle de PLC. Finalement
+son nom d'hôte indique explicitement qu'il sagirait d'un PLC. Sous
+toute réserve on peut poser l'hypothèse qu'il sert de lien entre le niveau
+2 de supervision et les processus physiques et leurs équipements (actuators,
+sensors) au niveau 0.
+
+\textbf{Niveau 2 - Supervision}: ihm.scada (192.168.95.5)
+Cet hôte ne publie aucun port de type Modbus contrairement aux
+précédents. Il publie cependant le port 9090 qui selon nmap
+serait un serveur Apache Tomcat/Coyote. Il présente d'ailleurs
+la même bannière que le port 9090 publié par la VM décrit dans
+l'énoncé comme l'interface de contrôle du système industriel.
+Il y aussi le port 8009 (AJP13), probablemen une erreur de configuration
+puisque ce dernier est destiné à la connexion interne avec Tomcat.
+
+\textbf{Niveau 3-4-5}: Nous n'avons rien observé à ces niveaux.
+
+Hors de l'architecture il y a la carte RasPi et la caméra qui sont des
+machines de l'attaquant et ne prennent donc pas place dans le modèle de Purdue.
+
+\includegraphics[width=\textwidth]{images/recon.png}
 \end{document}

@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="770" viewBox="0 0 900 770" font-family="DejaVu Sans, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#333"/>
+    </marker>
+    <style>
+      .titre   { font-size: 19px; font-weight: bold; fill: #111; }
+      .niv     { font-size: 14px; font-weight: bold; fill: #1f2d3d; }
+      .nivsub  { font-size: 12px; fill: #44515f; }
+      .vide    { font-size: 12.5px; font-style: italic; fill: #7a838c; }
+      .hote    { font-size: 13px; font-weight: bold; fill: #111; }
+      .ip      { font-size: 12px; fill: #222; }
+      .note    { font-size: 11.5px; font-style: italic; fill: #555; }
+      .groupe  { font-size: 13px; font-weight: bold; fill: #333; }
+      .role    { font-size: 12px; font-weight: bold; fill: #8e1f14; }
+      .roleg   { font-size: 12px; font-weight: bold; fill: #444; }
+      .bande   { stroke: #c9d1d9; stroke-width: 1; }
+      .boite   { stroke-width: 1.5; }
+    </style>
+  </defs>
+
+  <rect width="900" height="770" fill="#ffffff"/>
+
+  <text x="450" y="32" text-anchor="middle" class="titre">Architecture du réseau industriel selon le modèle de Purdue</text>
+
+  <!-- ===================== Niveaux vides ===================== -->
+  <rect x="20" y="50" width="860" height="50" fill="#f3f4f6" class="bande"/>
+  <text x="32" y="72" class="niv">Niveaux 4–5</text>
+  <text x="32" y="89" class="nivsub">Entreprise / TI</text>
+  <text x="560" y="80" text-anchor="middle" class="vide">Aucun actif observé</text>
+
+  <rect x="20" y="100" width="860" height="50" fill="#f7f7f8" class="bande"/>
+  <text x="32" y="122" class="niv">Niveau 3.5</text>
+  <text x="32" y="139" class="nivsub">DMZ industrielle</text>
+  <text x="560" y="130" text-anchor="middle" class="vide">Aucun actif observé (absence de DMZ)</text>
+
+  <rect x="20" y="150" width="860" height="50" fill="#f3f4f6" class="bande"/>
+  <text x="32" y="172" class="niv">Niveau 3</text>
+  <text x="32" y="189" class="nivsub">Opérations du site</text>
+  <text x="560" y="180" text-anchor="middle" class="vide">Aucun actif observé</text>
+
+  <!-- ===================== Niveau 2 ===================== -->
+  <rect x="20" y="200" width="860" height="90" fill="#eaf2fb" class="bande"/>
+  <text x="32" y="238" class="niv">Niveau 2</text>
+  <text x="32" y="255" class="nivsub">Supervision (IHM / SCADA)</text>
+  <rect x="460" y="219" width="200" height="50" rx="6" fill="#ffffff" stroke="#2f6db5" class="boite"/>
+  <text x="560" y="240" text-anchor="middle" class="hote">ihm.scada</text>
+  <text x="560" y="258" text-anchor="middle" class="ip">192.168.95.5</text>
+
+  <!-- ===================== Niveau 1 ===================== -->
+  <rect x="20" y="290" width="860" height="90" fill="#eef7ee" class="bande"/>
+  <text x="32" y="328" class="niv">Niveau 1</text>
+  <text x="32" y="345" class="nivsub">Contrôle de base (automate)</text>
+  <rect x="460" y="310" width="200" height="50" rx="6" fill="#ffffff" stroke="#3a8a3a" class="boite"/>
+  <text x="560" y="331" text-anchor="middle" class="hote">plc.scada</text>
+  <text x="560" y="349" text-anchor="middle" class="ip">192.168.95.2</text>
+
+  <!-- ===================== Niveau 0 ===================== -->
+  <rect x="20" y="380" width="860" height="160" fill="#fdf3e7" class="bande"/>
+  <text x="32" y="455" class="niv">Niveau 0</text>
+  <text x="32" y="472" class="nivsub">Procédé physique</text>
+
+  <rect x="250" y="392" width="620" height="136" rx="8" fill="none" stroke="#c07a1f" stroke-dasharray="6 4"/>
+  <text x="262" y="409" class="note">Même adresse MAC (une seule machine)</text>
+
+  <rect x="460" y="414" width="200" height="46" rx="6" fill="#ffffff" stroke="#c07a1f" class="boite"/>
+  <text x="560" y="433" text-anchor="middle" class="hote">simulation.scada</text>
+  <text x="560" y="450" text-anchor="middle" class="ip">192.168.95.101</text>
+
+  <g text-anchor="middle">
+    <rect x="257" y="472" width="96" height="46" rx="6" fill="#ffffff" stroke="#c07a1f" class="boite"/>
+    <text x="305" y="491" class="hote">NA</text>
+    <text x="305" y="508" class="ip">192.168.95.10</text>
+
+    <rect x="359" y="472" width="96" height="46" rx="6" fill="#ffffff" stroke="#c07a1f" class="boite"/>
+    <text x="407" y="491" class="hote">NA</text>
+    <text x="407" y="508" class="ip">192.168.95.11</text>
+
+    <rect x="461" y="472" width="96" height="46" rx="6" fill="#ffffff" stroke="#c07a1f" class="boite"/>
+    <text x="509" y="491" class="hote">NA</text>
+    <text x="509" y="508" class="ip">192.168.95.12</text>
+
+    <rect x="563" y="472" width="96" height="46" rx="6" fill="#ffffff" stroke="#c07a1f" class="boite"/>
+    <text x="611" y="491" class="hote">NA</text>
+    <text x="611" y="508" class="ip">192.168.95.13</text>
+
+    <rect x="665" y="472" width="96" height="46" rx="6" fill="#ffffff" stroke="#c07a1f" class="boite"/>
+    <text x="713" y="491" class="hote">NA</text>
+    <text x="713" y="508" class="ip">192.168.95.14</text>
+
+    <rect x="767" y="472" width="96" height="46" rx="6" fill="#ffffff" stroke="#c07a1f" class="boite"/>
+    <text x="815" y="491" class="hote">NA</text>
+    <text x="815" y="508" class="ip">192.168.95.15</text>
+  </g>
+
+  <!-- ===================== Flèches Modbus ===================== -->
+  <line x1="560" y1="269" x2="560" y2="308" stroke="#333" stroke-width="1.6" marker-end="url(#fleche)"/>
+  <text x="572" y="293" class="note">Modbus/TCP (à confirmer, partie 2)</text>
+  <line x1="560" y1="360" x2="560" y2="412" stroke="#333" stroke-width="1.6" marker-end="url(#fleche)"/>
+  <text x="572" y="385" class="note">Modbus/TCP (à confirmer, partie 2)</text>
+
+  <!-- ===================== Réseau plat ===================== -->
+  <rect x="20" y="555" width="860" height="34" rx="4" fill="#fbe9e9" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="450" y="577" text-anchor="middle" class="hote" fill="#8e1f14">Réseau plat unique 192.168.95.0/24 — aucune segmentation entre les niveaux</text>
+
+  <!-- ===================== Hors de l'usine ===================== -->
+  <text x="20" y="620" class="groupe">Hors de l'architecture de l'usine</text>
+
+  <!-- Équipement de l'attaquant -->
+  <rect x="20" y="632" width="540" height="120" rx="6" fill="#fafafa" stroke="#888" stroke-dasharray="6 4"/>
+  <text x="34" y="652" class="groupe">Équipement de l'attaquant</text>
+
+  <text x="40" y="672" class="role">RasPi</text>
+  <rect x="40" y="680" width="200" height="50" rx="6" fill="#ffffff" stroke="#c0392b" class="boite"/>
+  <text x="140" y="701" text-anchor="middle" class="hote">2e66cc4cb86d</text>
+  <text x="140" y="719" text-anchor="middle" class="ip">192.168.95.122</text>
+
+  <text x="300" y="672" class="role">Caméra</text>
+  <rect x="300" y="680" width="200" height="50" rx="6" fill="#ffffff" stroke="#c0392b" class="boite"/>
+  <text x="400" y="701" text-anchor="middle" class="hote">NA</text>
+  <text x="400" y="719" text-anchor="middle" class="ip">NA</text>
+
+  <line x1="255" y1="705" x2="255" y2="591" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#fleche)"/>
+  <line x1="240" y1="705" x2="255" y2="705" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5 3"/>
+
+  <!-- Infrastructure du laboratoire -->
+  <rect x="580" y="632" width="300" height="120" rx="6" fill="#fafafa" stroke="#888" stroke-dasharray="6 4"/>
+  <text x="594" y="652" class="groupe">Infrastructure du laboratoire</text>
+
+  <text x="600" y="672" class="roleg">Passerelle / VM</text>
+  <rect x="600" y="680" width="200" height="50" rx="6" fill="#ffffff" stroke="#666" class="boite"/>
+  <text x="700" y="701" text-anchor="middle" class="hote">inf6103-tp2</text>
+  <text x="700" y="719" text-anchor="middle" class="ip">192.168.95.254</text>
+
+  <line x1="840" y1="705" x2="840" y2="591" stroke="#666" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#fleche)"/>
+  <line x1="800" y1="705" x2="840" y2="705" stroke="#666" stroke-width="1.6" stroke-dasharray="5 3"/>
+</svg>

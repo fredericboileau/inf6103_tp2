@@ -414,4 +414,20 @@ Nous voyons que notre MiTM fonctionne correctement.
   \includegraphics[width=\linewidth]{images/wireshark_readcoil.png}
   \caption{Read coils}
 \end{figure}
+
+\clearpage
+\subsection{Lecture avec mbpoll}
+\question{2.4}{Lisez les valeurs des différents registres du PLC avec votre propre client.}
+Nous relançons tcpdump pour la procahine question et lisons les deux registres: celui de 16-bit
+et celui du coil à l'aide de \textbf{mbpoll}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/mbpoll_reg.png}
+  \caption{Lecture des registres avec mbpool avec tcpdump en bg}
+\end{figure}
+
+\clearpage
+\subsection{Analyse du traffic mbpoll}
+\question{2.5}{Capturez le trafic généré par l’action précédente et analysez-le.}
 \end{document}

@@ -267,30 +267,11 @@ machines de l'attaquant et ne prennent donc pas place dans le modèle de Purdue.
 \subsection{Accès à la page d'authentification}
 \question{1.3}{Accédez à la page d'authentification de l'interface de contrôle
 du système industriel.}
-
-L'interface de contrôle est hébergée par \texttt{ihm.scada}
-(\texttt{192.168.95.5:9090}), nous établissons d'abord
-un tunnel ssh pour faire un port fowward local.
-\begin{lstlisting}[style=shell, caption={Tunnel SSH vers l'IHM à travers la RasPi}, label={lst:tunnel}]
-ssh -N -f -L 8090:192.168.95.5:9090 root@192.168.56.101 -p 2222
-\end{lstlisting}
-Nous utilisons l'outil \texttt{gobuster} pour énumérer les path
-disponibles sur le serveur étant donné que la racine donne
-juste la page par défaut de Tomcat.
-\begin{lstlisting}[style=shell, caption={Énumération des chemins du serveur Tomcat}, label={lst:gobuster}]
-gobuster dir -u http://localhost:8090/ -w common.txt
-\end{lstlisting}
-Nous trouvons le chemin intéressant \texttt{host-manager} et
-y accédons avec notre navigateur. Nous sommes par la suite
-interrogé par un dialogue HTTP basic auth. Voir capture
-pour tout le processus à la figure \ref{fig:gobuster}
-
+Trouvée en faisant un guess éduqué
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{images/adminpage_annotee.png}
-  \caption{Tunnel SSH, énumération des chemins et authentification de
-  \texttt{/host-manager}}
-  \label{fig:gobuster}
+  \includegraphics[width=\linewidth]{images/adminpage.png}
+  \caption{Page d'authentification de ScadaBR}
 \end{figure}
 
 \clearpage
@@ -300,11 +281,30 @@ pour tout le processus à la figure \ref{fig:gobuster}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{images/tentativeadminadmin_annotee.png}
+  \includegraphics[width=\linewidth]{images/adminpage_tentative.png}
   \caption{Tentative d'authentification avec \texttt{admin}/\texttt{admin}}
-  \label{fig:adminadmin}
 \end{figure}
 
+\clearpage
+\subsection{Brute force}
+\question{1.5}{En utilisant les dictionnaires usernames.txt et passwords.txt
+sur votre RasPi, réalisez une at- taque par force brute sur la page
+d’authentification pour obtenir les identifiants.}
+On utilise le filtre noSuchUser puisque c'est ce que nous voyons en essayant
+de login avec admin/admin.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/adminpage_bonusername.png}
+  \caption{Brute force username et password}
+\end{figure}
+Le message d'erreur change une fois que l'on a trouvé un bon username,
+nous utilisons donc le filtre Invalid.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/adminpage_loginsuccess.png}
+  \caption{Brute force avec le bon username}
+\end{figure}
 
 
 \end{document}

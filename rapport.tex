@@ -341,15 +341,15 @@ Le PLC doit maintenir la pression du réacteur sous sa limite critique.
     \toprule
     \textbf{Sortie} & \textbf{Débit observé} & \textbf{Position de vanne} \\
     \midrule
-    Purge   & \SI{500.0}{\kilo\mole\per\hour} & \SI{100.0}{\percent} \\
-    Product & \SI{201.3}{\kilo\mole\per\hour} & \SI{100.0}{\percent} \\
+    Purge   & \SI{0.0}{\kilo\mole\per\hour} & \SI{100.0}{\percent} \\
+    Product & \SI{0.0}{\kilo\mole\per\hour} & \SI{100.0}{\percent} \\
     \bottomrule
   \end{tabular}
 \end{table}
 
 \textbf{Capteurs}:
 \begin{itemize}
-  \item Pression du réacteur: 2429.2 kPa
+  \item Pression du réacteur: 99.6 kPa
   \item Niveau: 41.1 \%
   \item Débits sur chaque ligne d'entrée/sortie: kMol/h
 \end{itemize}
@@ -373,4 +373,45 @@ Le PLC doit maintenir la pression du réacteur sous sa limite critique.
   \caption{Supervision de ScadaBR}
 \end{figure}
 
+\clearpage
+\subsection{MiTM}
+\question{2.2}{Interposez-vous entre l’IHM et le PLC sans interrompre durablement le procédé.}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/arpspoof.png}
+  \caption{Exécution de arpspoof entre ihm.scada (192.168.95.5) et plc.scada (192.168.95.2)}
+\end{figure}
+
+\subsection{Capture et analyse de la communication}
+\question{2.3}{Capturez la communication entre les deux et analysez-la.}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/tcpdump.png}
+  \caption{Interception du traffic avec tcpdump}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/scp_tcpdump.png}
+  \caption{Récupération du fichier pcap}
+\end{figure}
+
+\clearpage
+\textbf{Analyse dans wireshark}:
+Nous filtrons sur le traffic modbus, il y a deux types de messages entre le
+superviseur et le plc, \textbf{read input registers} (13 registres) et
+\textbf{read coils} (un booléen), nous incluons deux captures les montrant.
+Nous montrons les réponses mais elles sont toutes précédées d'une query. Nous
+ne voyons que des "read", opérations de lecture passive et aucune écriture.
+Nous voyons que notre MiTM fonctionne correctement.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/wireshark_readreg.png}
+  \caption{Read input registers}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/wireshark_readcoil.png}
+  \caption{Read coils}
+\end{figure}
 \end{document}

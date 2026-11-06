@@ -430,4 +430,13 @@ et celui du coil à l'aide de \textbf{mbpoll}.
 \clearpage
 \subsection{Analyse du traffic mbpoll}
 \question{2.5}{Capturez le trafic généré par l’action précédente et analysez-le.}
+Nous avons maintenant un traffic entre notre machine 192.168.95.122 et le plc
+192.168.95.2. À part notre addresse IP le traffic modbus est identique à celui 
+que nous avons capturé précédemment. Nous filtrons encore une fois sur modbus
+pour ne pas polluer l'interface wireshark avec les handshake TCP.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/wireshark_mbpoll.png}
+  \caption{Analyse wireshark mbpoll}
+\end{figure}
 \end{document}

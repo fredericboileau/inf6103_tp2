@@ -306,5 +306,71 @@ nous utilisons donc le filtre Invalid.
   \caption{Brute force avec le bon username}
 \end{figure}
 
+\clearpage
+\section{Capture du traffic}
+\subsection{Description}
+\question{2.1}{À partir de cette interface, décrivez le procédé physique
+contrôlé: entrées, sorties, capteurs, actionneurs, unités de mesure. Formulez
+au moins un invariant de sûreté que le PLC devrait maintenir.}
+
+Le procédé physique contrôlé est un réacteur chimique (la cuve centrale)
+avec deux alimentations en entrée et une mesure de pression et de niveau internes.
+
+\textbf{Invariant de sûreté}:
+Le PLC doit maintenir la pression du réacteur sous sa limite critique.
+
+\begin{table}[H]
+  \centering
+  \caption{Entrées (alimentations) du réacteur}
+  \label{tab:entrees}
+  \begin{tabular}{@{}l r r@{}}
+    \toprule
+    \textbf{Entrée} & \textbf{Débit observé} & \textbf{Position de vanne} \\
+    \midrule
+    Feed1 & \SI{0.0}{\kilo\mole\per\hour} & \SI{0.0}{\percent} \\
+    Feed2 & \SI{0.0}{\kilo\mole\per\hour} & \SI{0.0}{\percent} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \caption{Sorties du réacteur}
+  \label{tab:sorties}
+  \begin{tabular}{@{}l r r@{}}
+    \toprule
+    \textbf{Sortie} & \textbf{Débit observé} & \textbf{Position de vanne} \\
+    \midrule
+    Purge   & \SI{500.0}{\kilo\mole\per\hour} & \SI{100.0}{\percent} \\
+    Product & \SI{201.3}{\kilo\mole\per\hour} & \SI{100.0}{\percent} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\textbf{Capteurs}:
+\begin{itemize}
+  \item Pression du réacteur: 2429.2 kPa
+  \item Niveau: 41.1 \%
+  \item Débits sur chaque ligne d'entrée/sortie: kMol/h
+\end{itemize}
+
+\textbf{Actionneurs}
+\begin{itemize}
+  \item Vannes réglables sur les deux alimentations et les deux sorties
+  \item Bouton STOP  
+\end{itemize}
+
+\textbf{Unités de mesure}
+\begin{itemize}
+  \item Débit: kMol/h (kilomoles par heure)
+  \item Pression: kPa (kilopascals)
+  \item Niveau et position de vanne: \%
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/scadabrmonitor.png}
+  \caption{Supervision de ScadaBR}
+\end{figure}
 
 \end{document}

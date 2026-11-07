@@ -471,3 +471,38 @@ En utilisant perl, nous pouvons voir que le PLC s'est bien arrêté :
   \includegraphics[width=\linewidth]{images/stop_command.png}
   \caption{Après l'envoi du paquet}
 \end{figure}
+
+\clearpage
+\subsection{Analyse des composants}
+\question{3.4}{Analysez les composants du PLC.}
+Les composants du PLC sont : 
+\begin{itemize}
+  \item scale_to_real : composant qui convertit une valeur entière uint en une valeur réelle ;
+  \item scale_to_uint : composant qui convertit une valeur réelle en une valeur entière uint ;
+  \item flow_control : composant qui contrôle le débit de la cuve. Il calcule le débit réel et ajuste la valve d’entrée pour que le débit réel soit celui voulu ;
+  \item composition_control : composant qui contrôle la composition chimique du produit. Si le produit a une concentration trop élevée ou trop faible, il ajuste la valve d’entrée pour réajuster le produit ;
+  \item pressure_control : composant qui contrôle la pression de la cuve.  Si la pression est trop élevée ou trop basse, il ajuste la valve de purge pour réajuster la pression ;
+  \item level_control : composant qui contrôle le niveau de liquide de la cuve. Si le niveau de liquide est trop grand ou trop petit, il ajuste la valve de production pour réajuster le niveau de liquide ;
+  \item pressure_override : composant de sécurité qui surveille la pression du système et modifie la consigne de débit lorsque la pression n’est pas comprise dans un seuil prédéfini ; 
+  \item initialize_sp : composant d'initialisation exécuté au démarrage du PLC. Il charge les consignes par défaut du système.
+\end{itemize}
+
+\clearpage
+\subsection{Expérimentation avec différentes valeurs}
+\question{3.5}{Expérimentez différentes valeurs objectives (set point) dans le but de faire exploser la cuve.}
+Pour faire exploser la cuve, il est le plus judicieux d’augmenter la pression de la cuve au maximum. Cela est possible avec la valeur objective uint press_sp_c dans le composant initialize_sp qui détermine la pression voulue dans la cuve. En mettant cette pression au maximum (65535), la cuve va surement exploser. 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/openplc.png}
+  \caption{Valeur changée dans OpenPCL Editor}
+\end{figure}
+
+\clearpage
+\subsection{Explosion}
+\question{3.6}{Injectez votre programme malicieux et constatez les dégâts.}
+On peut injecter le programme avec le fichier plc.st.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/explosion.png}
+  \caption{Cuve après l'injection}
+\end{figure}

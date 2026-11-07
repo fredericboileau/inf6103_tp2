@@ -439,7 +439,6 @@ pour ne pas polluer l'interface wireshark avec les handshake TCP.
   \includegraphics[width=\linewidth]{images/wireshark_mbpoll.png}
   \caption{Analyse wireshark mbpoll}
 \end{figure}
-\end{document}
 
 \clearpage
 \subsection{Arrêter le PLC interface}
@@ -506,3 +505,11 @@ On peut injecter le programme avec le fichier plc.st.
   \includegraphics[width=\linewidth]{images/explosion.png}
   \caption{Cuve après l'injection}
 \end{figure}
+
+\section{Defense}
+Les attaques de ce TP viennent d'un même problème : le réseau n'est pas du tout segmenté, ni protégé par des contrôles d'accès. Selon le modèle de Purdue, les niveaux 0 à 2 devraient être isolés par des pare-feux et une DMZ industrielle, ce qui aurait empêché notre RasPi, une fois branchée physiquement dans l'usine, d'accéder directement aux automates et à l'IHM. Des VLANs séparés et un contrôle d'accès réseau rejetant tout appareil inconnu auraient limité notre reconnaissance dès le départ. Sur le plan organisationnel, cette intrusion montre aussi qu'un contrôle d'accès physique plus strict (vérification des intervenants ne faisant pas partie de l'entreprise) est nécessaire, puisque notre scénario reposait entièrement sur une fausse identité de livreur.
+
+Le deuxième problème concerne les mots de passe. Le brute-force a réussi en quelques secondes avec des identifiants faibles (`massinissa`/`q1w2e3r4`). Il faudrait donc imposer des mots de passe robustes dès l'installation, supprimer les identifiants par défaut, et ajouter une double authentification sur l'interface de supervision. Un verrouillage de compte après plusieurs échecs, combiné à un système de détection d'intrusion capable de repérer un brute-force, aurait aussi bloqué l'attaque avant qu'elle n'aboutisse.
+
+Enfin, les attaques les plus graves, à savoir l'arrêt du PLC et la manipulation des registres — viennent du fait que Modbus/TCP n'authentifie et ne chiffre rien : n'importe qui sur le réseau peut envoyer une commande. Il faudrait un pare-feu industriel qui filtre le trafic Modbus pour n'accepter que les commandes venant de l'IHM, et des limites de sécurité codées directement dans le programme du PLC pour refuser une valeur dangereuse même si la commande semble légitime. L'interface de programmation qui nous a permis d'uploader un programme sans aucune vérification, devrait exiger une authentification forte et n'accepter que des programmes signés. Côté organisation, l'accès à cette interface devrait être réservé à une équipe dédiée, avec un processus de validation avant tout changement et une procédure claire d'arrêt d'urgence.
+\end{document}

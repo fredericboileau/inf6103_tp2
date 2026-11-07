@@ -209,7 +209,7 @@ le niveau correspondant du modèle de Purdue.
   \includegraphics[width=\linewidth]{architecture_purdue.pdf}
   \caption{Architecture du réseau industriel selon le modèle de Purdue (note: réalisé
   en svg par Claude selon notre spec)}
-  \label{fig:purdue}
+\label{fig:purdue}
 \end{figure}
 Le positionnment sur l'échelle de Purdue repose sur trois types d'informations
 observées:
@@ -249,7 +249,7 @@ puisque ce dernier est destiné à la connexion interne avec Tomcat.
 Hors de l'architecture il y a la carte RasPi et la caméra qui sont des
 machines de l'attaquant et ne prennent donc pas place dans le modèle de Purdue.
 
-\includegraphics[width=\textwidth]{images/recon.png}
+\includegraphics[width=\textwidth]{images/recon_2_annotee.png}
 
 \clearpage
 \subsection{Accès à la page d'authentification}
@@ -283,14 +283,14 @@ de login avec admin/admin.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{images/adminpage_bonusername.png}
+  \includegraphics[width=\linewidth]{images/adminpage_bonusername_annotee.png}
   \caption{Brute force username et password}
 \end{figure}
 Le message d'erreur change une fois que l'on a trouvé un bon username,
 nous utilisons donc le filtre Invalid.
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{images/adminpage_loginsuccess.png}
+  \includegraphics[width=\linewidth]{images/adminpage_loginsuccess_annotee.png}
   \caption{Brute force avec le bon username}
 \end{figure}
 
@@ -357,7 +357,7 @@ Le PLC doit maintenir la pression du réacteur sous sa limite critique.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{images/scadabrmonitor.png}
+  \includegraphics[width=\linewidth]{images/scadabrmonitor_annote.png}
   \caption{Supervision de ScadaBR}
 \end{figure}
 
@@ -374,12 +374,12 @@ Le PLC doit maintenir la pression du réacteur sous sa limite critique.
 \question{2.3}{Capturez la communication entre les deux et analysez-la.}
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{images/tcpdump.png}
+  \includegraphics[width=\linewidth]{images/tcpdump_annote.png}
   \caption{Interception du traffic avec tcpdump}
 \end{figure}
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{images/scp_tcpdump.png}
+  \includegraphics[width=\linewidth]{images/scp_tcpdump_annote.png}
   \caption{Récupération du fichier pcap}
 \end{figure}
 
@@ -393,7 +393,7 @@ ne voyons que des "read", opérations de lecture passive et aucune écriture.
 Nous voyons que notre MiTM fonctionne correctement.
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{images/wireshark_readreg.png}
+  \includegraphics[width=\linewidth]{images/wireshark_readreg_annote.png}
   \caption{Read input registers}
 \end{figure}
 
@@ -411,7 +411,7 @@ et celui du coil à l'aide de \textbf{mbpoll}.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{images/mbpoll_reg.png}
+  \includegraphics[width=\linewidth]{images/mbpoll_reg_annote.png}
   \caption{Lecture des registres avec mbpool avec tcpdump en bg}
 \end{figure}
 
@@ -424,7 +424,7 @@ que nous avons capturé précédemment. Nous filtrons encore une fois sur modbus
 pour ne pas polluer l'interface wireshark avec les handshake TCP.
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\linewidth]{images/wireshark_mbpoll.png}
+  \includegraphics[width=\linewidth]{images/wireshark_mbpoll_annote.png}
   \caption{Analyse wireshark mbpoll}
 \end{figure}
 

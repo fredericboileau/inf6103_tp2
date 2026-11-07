@@ -441,9 +441,15 @@ pour ne pas polluer l'interface wireshark avec les handshake TCP.
 \end{figure}
 
 \clearpage
+\section{Injections}
 \subsection{Arrêter le PLC interface}
-\question{3.1}{Arrêtez le PLC depuis l’interface de contrôle et identifiez exactement la transaction Modbus responsable. Donnez le code fonction, l’adresse, la valeur écrite et la réponse du PLC. Expliquezpourquoi cette transaction peut être considérée comme critique.}
+\question{3.1}{Arrêtez le PLC depuis l’interface de contrôle et identifiez
+exactement la transaction Modbus responsable. Donnez le code fonction,
+l’adresse, la valeur écrite et la réponse du PLC. Expliquezpourquoi cette
+transaction peut être considérée comme critique.}
+
 Nous avons Arrêté le PLC en écoutant le traffic puis avons analysé avec wireshark. Voici les captures de wireshark :
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{images/modbus_query.png}
@@ -454,7 +460,9 @@ Nous avons Arrêté le PLC en écoutant le traffic puis avons analysé avec wire
   \includegraphics[width=\linewidth]{images/modbus_response.png}
   \caption{Analyse wireshark modbus response}
 \end{figure}
-Le code fonction est Write Single Coil, l'adresse est 40 et la valeur écrite est 00. Comme le veut le protocole modbus, la réponse du PLC est de faire un écho de la demande en cas de réussite, donc le coil a bien été changé.
+Le code fonction est Write Single Coil, l'adresse est 40 et la valeur écrite
+est 00. Comme le veut le protocole modbus, la réponse du PLC est de faire un
+écho de la demande en cas de réussite, donc le coil a bien été changé.
 
 \clearpage
 \subsection{Arrêter le PLC commande}
@@ -476,20 +484,27 @@ En utilisant perl, nous pouvons voir que le PLC s'est bien arrêté :
 \question{3.4}{Analysez les composants du PLC.}
 Les composants du PLC sont : 
 \begin{itemize}
-  \item scale_to_real : composant qui convertit une valeur entière uint en une valeur réelle ;
-  \item scale_to_uint : composant qui convertit une valeur réelle en une valeur entière uint ;
-  \item flow_control : composant qui contrôle le débit de la cuve. Il calcule le débit réel et ajuste la valve d’entrée pour que le débit réel soit celui voulu ;
-  \item composition_control : composant qui contrôle la composition chimique du produit. Si le produit a une concentration trop élevée ou trop faible, il ajuste la valve d’entrée pour réajuster le produit ;
-  \item pressure_control : composant qui contrôle la pression de la cuve.  Si la pression est trop élevée ou trop basse, il ajuste la valve de purge pour réajuster la pression ;
-  \item level_control : composant qui contrôle le niveau de liquide de la cuve. Si le niveau de liquide est trop grand ou trop petit, il ajuste la valve de production pour réajuster le niveau de liquide ;
-  \item pressure_override : composant de sécurité qui surveille la pression du système et modifie la consigne de débit lorsque la pression n’est pas comprise dans un seuil prédéfini ; 
-  \item initialize_sp : composant d'initialisation exécuté au démarrage du PLC. Il charge les consignes par défaut du système.
+  \item scale\_to\_real : composant qui convertit une valeur entière uint en une valeur réelle ;
+  \item scale\_to\_uint : composant qui convertit une valeur réelle en une valeur entière uint ;
+  \item flow\_control : composant qui contrôle le débit de la cuve. Il calcule le débit réel et ajuste la valve d’entrée pour que le débit réel soit celui voulu ;
+  \item composition\_control : composant qui contrôle la composition chimique du produit. Si le produit a une concentration trop élevée ou trop faible, il ajuste la valve d’entrée pour réajuster le produit ;
+  \item pressure\_control : composant qui contrôle la pression de la cuve.  Si la pression est trop élevée ou trop basse, il ajuste la valve de purge pour réajuster la pression ;
+  \item level\_control : composant qui contrôle le niveau de liquide de la cuve. Si le niveau de liquide est trop grand ou trop petit, il ajuste la valve de production pour réajuster le niveau de liquide ;
+  \item pressure\_override : composant de sécurité qui surveille la pression du système et modifie la consigne de débit lorsque la pression n’est pas comprise dans un seuil prédéfini ; 
+  \item initialize\_sp : composant d'initialisation exécuté au démarrage du PLC. Il charge les consignes par défaut du système.
 \end{itemize}
 
 \clearpage
 \subsection{Expérimentation avec différentes valeurs}
-\question{3.5}{Expérimentez différentes valeurs objectives (set point) dans le but de faire exploser la cuve.}
-Pour faire exploser la cuve, il est le plus judicieux d’augmenter la pression de la cuve au maximum. Cela est possible avec la valeur objective uint press_sp_c dans le composant initialize_sp qui détermine la pression voulue dans la cuve. En mettant cette pression au maximum (65535), la cuve va surement exploser. 
+\question{3.5}{Expérimentez différentes valeurs objectives (set point) dans le
+but de faire exploser la cuve.}
+
+Pour faire exploser la cuve, il est le plus judicieux d’augmenter la pression
+de la cuve au maximum. Cela est possible avec la valeur objective uint
+press\_sp\_c dans le composant initialize\_sp qui détermine la pression voulue
+dans la cuve. En mettant cette pression au maximum (65535), la cuve va surement
+exploser. 
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{images/openplc.png}
@@ -507,9 +522,34 @@ On peut injecter le programme avec le fichier plc.st.
 \end{figure}
 
 \section{Defense}
-Les attaques de ce TP viennent d'un même problème : le réseau n'est pas du tout segmenté, ni protégé par des contrôles d'accès. Selon le modèle de Purdue, les niveaux 0 à 2 devraient être isolés par des pare-feux et une DMZ industrielle, ce qui aurait empêché notre RasPi, une fois branchée physiquement dans l'usine, d'accéder directement aux automates et à l'IHM. Des VLANs séparés et un contrôle d'accès réseau rejetant tout appareil inconnu auraient limité notre reconnaissance dès le départ. Sur le plan organisationnel, cette intrusion montre aussi qu'un contrôle d'accès physique plus strict (vérification des intervenants ne faisant pas partie de l'entreprise) est nécessaire, puisque notre scénario reposait entièrement sur une fausse identité de livreur.
+Les attaques de ce TP viennent d'un même problème : le réseau n'est pas du tout
+segmenté, ni protégé par des contrôles d'accès. Selon le modèle de Purdue, les
+niveaux 0 à 2 devraient être isolés par des pare-feux et une DMZ industrielle,
+ce qui aurait empêché notre RasPi, une fois branchée physiquement dans l'usine,
+d'accéder directement aux automates et à l'IHM. Des VLANs séparés et un
+contrôle d'accès réseau rejetant tout appareil inconnu auraient limité notre
+reconnaissance dès le départ. Sur le plan organisationnel, cette intrusion
+montre aussi qu'un contrôle d'accès physique plus strict (vérification des
+intervenants ne faisant pas partie de l'entreprise) est nécessaire, puisque
+notre scénario reposait entièrement sur une fausse identité de livreur.
 
-Le deuxième problème concerne les mots de passe. Le brute-force a réussi en quelques secondes avec des identifiants faibles (`massinissa`/`q1w2e3r4`). Il faudrait donc imposer des mots de passe robustes dès l'installation, supprimer les identifiants par défaut, et ajouter une double authentification sur l'interface de supervision. Un verrouillage de compte après plusieurs échecs, combiné à un système de détection d'intrusion capable de repérer un brute-force, aurait aussi bloqué l'attaque avant qu'elle n'aboutisse.
+Le deuxième problème concerne les mots de passe. Le brute-force a réussi en
+quelques secondes avec des identifiants faibles (`massinissa`/`q1w2e3r4`). Il
+faudrait donc imposer des mots de passe robustes dès l'installation, supprimer
+les identifiants par défaut, et ajouter une double authentification sur
+l'interface de supervision. Un verrouillage de compte après plusieurs échecs,
+combiné à un système de détection d'intrusion capable de repérer un
+brute-force, aurait aussi bloqué l'attaque avant qu'elle n'aboutisse.
 
-Enfin, les attaques les plus graves, à savoir l'arrêt du PLC et la manipulation des registres — viennent du fait que Modbus/TCP n'authentifie et ne chiffre rien : n'importe qui sur le réseau peut envoyer une commande. Il faudrait un pare-feu industriel qui filtre le trafic Modbus pour n'accepter que les commandes venant de l'IHM, et des limites de sécurité codées directement dans le programme du PLC pour refuser une valeur dangereuse même si la commande semble légitime. L'interface de programmation qui nous a permis d'uploader un programme sans aucune vérification, devrait exiger une authentification forte et n'accepter que des programmes signés. Côté organisation, l'accès à cette interface devrait être réservé à une équipe dédiée, avec un processus de validation avant tout changement et une procédure claire d'arrêt d'urgence.
+Enfin, les attaques les plus graves, à savoir l'arrêt du PLC et la manipulation
+des registres — viennent du fait que Modbus/TCP n'authentifie et ne chiffre
+rien : n'importe qui sur le réseau peut envoyer une commande. Il faudrait un
+pare-feu industriel qui filtre le trafic Modbus pour n'accepter que les
+commandes venant de l'IHM, et des limites de sécurité codées directement dans
+le programme du PLC pour refuser une valeur dangereuse même si la commande
+semble légitime. L'interface de programmation qui nous a permis d'uploader un
+programme sans aucune vérification, devrait exiger une authentification forte
+et n'accepter que des programmes signés. Côté organisation, l'accès à cette
+interface devrait être réservé à une équipe dédiée, avec un processus de
+validation avant tout changement et une procédure claire d'arrêt d'urgence.
 \end{document}

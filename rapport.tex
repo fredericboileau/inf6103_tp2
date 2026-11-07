@@ -440,3 +440,34 @@ pour ne pas polluer l'interface wireshark avec les handshake TCP.
   \caption{Analyse wireshark mbpoll}
 \end{figure}
 \end{document}
+
+\clearpage
+\subsection{Arrêter le PLC interface}
+\question{3.1}{Arrêtez le PLC depuis l’interface de contrôle et identifiez exactement la transaction Modbus responsable. Donnez le code fonction, l’adresse, la valeur écrite et la réponse du PLC. Expliquezpourquoi cette transaction peut être considérée comme critique.}
+Nous avons Arrêté le PLC en écoutant le traffic puis avons analysé avec wireshark. Voici les captures de wireshark :
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/modbus_query.png}
+  \caption{Analyse wireshark modbus query}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/modbus_response.png}
+  \caption{Analyse wireshark modbus response}
+\end{figure}
+Le code fonction est Write Single Coil, l'adresse est 40 et la valeur écrite est 00. Comme le veut le protocole modbus, la réponse du PLC est de faire un écho de la demande en cas de réussite, donc le coil a bien été changé.
+
+\clearpage
+\subsection{Arrêter le PLC commande}
+\question{3.2}{Arrêtez le PLC sans passer par une interface graphique.}
+En utilisant perl, nous pouvons voir que le PLC s'est bien arrêté : 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/stop_command_preview.png}
+  \caption{Avant l'envoi du paquet}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/stop_command.png}
+  \caption{Après l'envoi du paquet}
+\end{figure}

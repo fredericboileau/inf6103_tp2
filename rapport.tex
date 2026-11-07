@@ -480,6 +480,19 @@ En utilisant perl, nous pouvons voir que le PLC s'est bien arrêté :
 \end{figure}
 
 \clearpage
+\subsection{Modification des valeurs de l'interface de contrôle}
+\question{3.3}{Modifiezlesvaleursaffichéessurl’interface de contrôle}
+On utilise la commande suivante : \textbf{mbpoll -m tcp -a 247 -t 4 -r 1 -0 192.168.95.10 50} suivie de celle-ci : 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{images/3.3_modification_valeurs.png}
+  \caption{Valeurs modifiée du flux Feed1}
+\end{figure}
+Ces deux commandes permettent de repérer l'esclave Modbus à modifier (ici, le Feed1 dont on trouve l'ID dans le fichier /plc/mbconfig.cfg.
+On force la valeur de son registre à 50 (donc un flux entrant de 50%) et la deuxième permet d'observer le trafic.
+On voit bien qu'on a réussi à écrire dans le registre de l'esclave (la 2e commande affiche régulièrement les valeurs du Feed1, et on observe que celles-ci sont 50%. Un deuxième registre auquel on a pas touché est initialisé à 0 et garde cette valeur.
+
+\clearpage
 \subsection{Analyse des composants}
 \question{3.4}{Analysez les composants du PLC.}
 Les composants du PLC sont : 

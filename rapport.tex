@@ -45,7 +45,7 @@
 \newcommand{\cours}{INF6103 : Cybersécurité des Infrastructures Critiques}
 \newcommand{\tptitre}{TP 2 : Scénario d'intrusion contre les systèmes de contrôle industriels}
 \newcommand{\session}{Automne 2026}
-\newcommand{\equipe}{Équipe XX}
+\newcommand{\equipe}{Équipe 6}
 \newcommand{\remise}{\today}
 
 % Adresse de la VM (à adapter)
@@ -123,31 +123,18 @@
   {\large \equipe\par}
   \vspace{0.5cm}
   \begin{tabular}{ll}
-    Prénom Nom & Matricule \\
-    Prénom Nom & Matricule \\
+    Frederic Boileau & 1716129 \\
+    Tristan Moreau &  2554828\\
+    Michael Panov & 2194637\\
   \end{tabular}
   \vfill
   {\large Polytechnique Montréal\par}
-  {\session\ --- Remis le \remise\par}
+  {\session\ ---  \remise\par}
 \end{titlepage}
 
 \tableofcontents
 \newpage
 
-% =============================================================================
-\section*{Sommaire exécutif}
-\addcontentsline{toc}{section}{Sommaire exécutif}
-% Résumé destiné à la direction : objectif du mandat, principales
-% vulnérabilités, impact démontré, recommandations prioritaires.
-\todo{Résumé du mandat, des vulnérabilités critiques et de l'impact.}
-
-\subsection*{Périmètre et conditions}
-\begin{itemize}
-  \item Point d'entrée : carte RasPi (\texttt{ssh root@\ipvm{} -p 2222}).
-  \item Caméra de surveillance de la cuve : \url{http://ip_vm:80}.
-  \item Interface de contrôle (tunnel) : \url{http://ip_vm:9090/}.
-  \item Interface de programmation du PLC (tunnel) : \url{http://ip_vm:8080/}.
-\end{itemize}
 
 % =============================================================================
 \section{Reconnaissance}
@@ -220,7 +207,8 @@ le niveau correspondant du modèle de Purdue.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{architecture_purdue.pdf}
-  \caption{Architecture du réseau industriel selon le modèle de Purdue}
+  \caption{Architecture du réseau industriel selon le modèle de Purdue (note: réalisé
+  en svg par Claude selon notre spec)}
   \label{fig:purdue}
 \end{figure}
 Le positionnment sur l'échelle de Purdue repose sur trois types d'informations
